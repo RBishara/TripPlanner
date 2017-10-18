@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ParentActivity">
+
+    <!-- "Destinations List", should appear as action button if possible -->
+    <item
+        android:id="@+id/action_dest_list"
+        android:icon="@android:drawable/ic_menu_mylocation"
+        android:title="@string/dest_icon_name"
+        app:showAsAction="always" />
+
+    <!-- "Route Map", should appear as action button if possible -->
+    <item
+        android:id="@+id/action_route_map"
+        android:icon="@android:drawable/ic_menu_mapmode"
+        android:title="@string/route_map_name"
+        app:showAsAction="always" />
+
+    <!-- "Preferences Graph", should appear as action button if possible -->
+    <item
+        android:id="@+id/action_preferences_list"
+        android:icon="@android:drawable/btn_star"
+        android:title="@string/preferences_list_name"
+        app:showAsAction="always" />
+
+    <!-- "Friends List", should appear as action button if possible -->
+    <item
+        android:id="@+id/action_friends_list"
+        android:icon="@android:drawable/ic_menu_share"
+        android:title="@string/friends_list_name"
+        app:showAsAction="always" />
+
+    <!-- "Account Profile", should appear as action button if possible -->
+    <item
+        android:id="@+id/action_account_profile"
+        android:icon="@android:drawable/ic_menu_report_image"
+        android:title="@string/account_login_name"
+        app:showAsAction="always" />
+</menu>
