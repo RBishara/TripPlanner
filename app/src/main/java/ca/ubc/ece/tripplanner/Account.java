@@ -1,13 +1,10 @@
 package ca.ubc.ece.tripplanner;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by tom on 2017-10-14.
- */
-
-public class Account {
+public class Account implements Serializable {
 
     /** Name */
     public String name;

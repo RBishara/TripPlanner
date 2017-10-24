@@ -1,6 +1,5 @@
 package ca.ubc.ece.tripplanner;
 
-import android.accounts.AccountManager;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,7 +7,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class ParentActivity extends AppCompatActivity {
 
@@ -16,7 +19,7 @@ public class ParentActivity extends AppCompatActivity {
     private int contentView = R.layout.activity_parent;
 
     /** Account information */
-    Account account;
+    private Account account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,28 @@ public class ParentActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        account = new Account();
+
+        final ListView destinationsListView = (ListView) findViewById(R.id.dest_list);
+
+        String[] destinationsListValues = new String[account.destinations.size()];
+
+        for (int i = 0; i < account.destinations.size(); i++) {
+            destinationsListValues[i] = new String(account.destinations.get(i));
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, destinationsListValues);
+
+        destinationsListView.setAdapter(adapter);
+
+        destinationsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getApplicationContext(),
+                        (String) destinationsListView.getItemAtPosition(position), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     @Override
@@ -55,7 +80,10 @@ public class ParentActivity extends AppCompatActivity {
             case R.id.action_route_map:
                 // User chose the "Map" action, show the current route
                 if (contentView != R.layout.activity_map) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("Account", account);
                     Intent intent = new Intent(this, MapActivity.class);
+                    intent.putExtras(bundle);
                     intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     startActivity(intent);
                 }

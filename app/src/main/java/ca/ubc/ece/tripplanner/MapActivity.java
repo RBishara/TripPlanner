@@ -17,7 +17,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
 
+    /** Internal representation of the map */
     private GoogleMap mMap;
+
+    /** Account information */
+    private Account account;
 
     /** The current view */
     private int contentView = R.layout.activity_map;
@@ -38,6 +42,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     protected void onResume() {
         super.onResume();
+
+        Bundle bundle = getIntent().getExtras();
+        if (account == null && bundle != null) {
+            account = (Account) bundle.getSerializable("Account");
+        }
+
+        mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Destination"));
     }
 
     /**
@@ -90,7 +101,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             case R.id.action_preferences_list:
                 //User chose the "Preferences" action, show graph of preferences
                 if (contentView != R.layout.activity_preferences) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("Account", account);
                     Intent intent = new Intent(this, PreferencesActivity.class);
+                    intent.putExtras(bundle);
                     intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     startActivity(intent);
                 }
